@@ -43,7 +43,7 @@ pipeline {
                 
                 
                 stage('Rest') {
-                    agent {label 'linux'}
+                    agent {label 'linux-2'}
                     steps {
                       catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                         unstash name:'code'
@@ -64,8 +64,8 @@ pipeline {
 							cd "/home/Jenkins-Agent/workspace/JFM-UNIR/CP 1.1/CP 1.1 - Reto 2"
 							pytest --junitxml=result-rest.xml test/rest
                         '''
-						// stash name:'rest-res', includes:'result-rest.xml'
-						stash name:'rest-res', includes:'**'
+						stash name:'rest-res', includes:'result-rest.xml'
+						// stash name:'rest-res', includes:'**'
 						sh 'rm -rf "/home/Jenkins-Agent/workspace/JFM-UNIR/CP 1.1/CP 1.1 - Reto 2/*"'
                       }
                     }    
