@@ -32,7 +32,7 @@ pipeline {
                             sh '''
                                 ls -la
                                 export PYTHONPATH=${WORKSPACE}
-                                cd /home/Jenkins-Agent/workspace/JFM-UNIR/CP 1.1/CP 1.1 - Reto 2
+                                cd "/home/Jenkins-Agent/workspace/JFM-UNIR/CP 1.1/CP 1.1 - Reto 2"
 								pytest --junitxml=result-unit.xml test/unit
                             '''
                             stash name:'unit-res', includes:'result-unit.xml'
