@@ -5,6 +5,7 @@ pipeline {
 
      stages {
         stage('Get Code') {
+		agent {label 'windows'}
             steps {
                 // Obtener código del repo
                 git 'https://github.com/javifrancesm/JFM-UNIR_helloworld.git'
@@ -65,7 +66,7 @@ pipeline {
 							pytest --junitxml=result-rest.xml test/rest
                         '''
 						stash name:'rest-res', includes:'result-rest.xml'
-						// stash name:'rest-res', includes:'**'
+						// stash name:'rest-res', includes:'**' -> Con solo 1 linux-agent es la forma de que no se "pisen"
 						sh 'rm -rf "/home/Jenkins-Agent/workspace/JFM-UNIR/CP 1.1/CP 1.1 - Reto 2/*"'
                       }
                     }    
