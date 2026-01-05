@@ -47,17 +47,18 @@ pipeline {
                       catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                         unstash name:'code'
                         sh '''
-                            export FLASK_APP=app/api.py                          
-                            /home/agent2/.local/bin/flask run &
+                            export FLASK_APP=app/api.py                    
+							cd "/home/Jenkins-Agent/workspace/JFM-UNIR/CP 1.1/CP 1.1 - Reto 2"
+                            flask run &
 
                             sleep 4
 
-                            java -jar /home/agent2/wiremock/wiremock-standalone-3.3.1.jar --port 9090 --root-dir /home/agent2/wiremock &
+                            java -jar /home/wiremock-jre8-standalone-2.28.0.jar --port 9090 --root-dir /home/Jenkins-Agent/workspace/JFM-UNIR/CP\ 1.1/CP\ 1.1\ -\ Reto\ 2/test/wiremock &
                             export PYTHONPATH=${WORKSPACE}
                             
                             sleep 15
                             
-                            /home/agent2/.local/bin/pytest --junitxml=result-rest.xml test/rest
+                            /home/Jenkins-Agent/workspace/JFM-UNIR/CP\ 1.1/CP\ 1.1\ -\ Reto\ 2/pytest --junitxml=result-rest.xml test/rest
                         '''
                       }
                       stash name:'rest-res', includes:'result-rest.xml'
