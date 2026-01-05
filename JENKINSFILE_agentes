@@ -12,12 +12,14 @@ pipeline {
 	            echo WORKSPACE
                 bat 'dir'
                 stash name:'code', includes:'**'
+				deleteDir()
             }
         }
     
         stage('Build') {
            steps {
-              echo 'Eyyy, esto es Python. No hay que compilar nada!!!'
+            echo 'Eyyy, esto es Python. No hay que compilar nada!!!'
+			deleteDir()
            }
         }
         
@@ -37,7 +39,7 @@ pipeline {
 								pytest --junitxml=result-unit.xml test/unit
                             '''
                             stash name:'unit-res', includes:'result-unit.xml'
-							sh 'rm -rf "/home/Jenkins-Agent/workspace/JFM-UNIR/CP 1.1/CP 1.1 - Reto 2/*"'
+							deleteDir()
                        }
                     }
                 }   
@@ -66,8 +68,8 @@ pipeline {
 							pytest --junitxml=result-rest.xml test/rest
                         '''
 						stash name:'rest-res', includes:'result-rest.xml'
-						// stash name:'rest-res', includes:'**' -> Con solo 1 linux-agent es la forma de que no se "pisen"
-						sh 'rm -rf "/home/Jenkins-Agent/workspace/JFM-UNIR/CP 1.1/CP 1.1 - Reto 2/*"'
+						// stash name:'rest-res', includes:'**' -> Con solo 1 linux-agent es la forma de que no se "pisen".
+						deleteDir()
                       }
                     }    
                 }                
@@ -79,7 +81,8 @@ pipeline {
             steps {
                 unstash name:'unit-res'
                 unstash name:'rest-res'
-                junit 'result*.xml' 
+                junit 'result*.xml'
+				deleteDir()
             }
         }
      
