@@ -36,6 +36,7 @@ pipeline {
 								pytest --junitxml=result-unit.xml test/unit
                             '''
                             stash name:'unit-res', includes:'result-unit.xml'
+							sh 'rm -rf "/home/Jenkins-Agent/workspace/JFM-UNIR/CP 1.1/CP 1.1 - Reto 2/*"'
                        }
                     }
                 }   
