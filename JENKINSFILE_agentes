@@ -58,8 +58,9 @@ pipeline {
                             export PYTHONPATH=${WORKSPACE}
                             
                             sleep 15
-                            
-                            "/home/Jenkins-Agent/workspace/JFM-UNIR/CP 1.1/CP 1.1 - Reto 2/pytest" --junitxml=result-rest.xml test/rest
+
+							cd "/home/Jenkins-Agent/workspace/JFM-UNIR/CP 1.1/CP 1.1 - Reto 2"
+							pytest --junitxml=result-rest.xml test/rest
                         '''
                       }
                       stash name:'rest-res', includes:'result-rest.xml'
